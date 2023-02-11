@@ -26,7 +26,7 @@ router.post("/login", async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id }, secret, {
-      expiresIn: "1h",
+      expiresIn: "7h",
     });
     res.send({ token });
   } catch (error) {
@@ -34,7 +34,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/sign_up", async (req, res) => {
+router.post("/sign-up", async (req, res) => {
   try {
     const existingUser = await User.findOne({ username: req.body.username });
     if (existingUser) {
@@ -47,6 +47,7 @@ router.post("/sign_up", async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
     });
+
     await user.save();
 
     const token = jwt.sign({ id: user._id }, secret, {

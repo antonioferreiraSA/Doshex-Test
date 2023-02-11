@@ -20,7 +20,7 @@ const App = () => {
 
   const signIn = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post("http://localhost:4000/login", {
         email,
         password,
       });
@@ -33,7 +33,7 @@ const App = () => {
 
   const signUp = async (email, password) => {
     try {
-      await axios.post("http://localhost:5000/sign_up", {
+      await axios.post("http://localhost:4000/sign_up", {
         email,
         password,
       });

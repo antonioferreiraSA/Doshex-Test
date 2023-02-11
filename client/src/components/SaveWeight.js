@@ -10,7 +10,7 @@ const SaveWeight = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:3000/save_weight",
+        "http://localhost:4000/save_weight",
         {
           weight,
         },

@@ -6,14 +6,31 @@ const User = require("../models/user");
 
 const router = express.Router();
 
+console.log("WHEIGHT");
 const verifyToken = (req, res, next) => {
   const token = req.header("x-auth-token");
+  console.log(
+    "token12 -----------------------------------------------------\n",
+    token
+  );
   if (!token) {
+    console.log(
+      "!token -----------------------------------------------------\n",
+      token
+    );
     return res.status(401).send({ message: "No token provided." });
   }
 
   try {
+    console.log(
+      "secretttttt -----------------------------------------------------\n",
+      secret
+    );
     const decoded = jwt.verify(token, secret);
+    console.log(
+      "decoded -----------------------------------------------------\n",
+      decoded
+    );
     req.userId = decoded.id;
     next();
   } catch (error) {
@@ -21,9 +38,17 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-router.post("/save_weight", verifyToken, async (req, res) => {
+router.post("/save-weight", verifyToken, async (req, res) => {
+  console.log(
+    "hey body -----------------------------------------------------\n",
+    req.body
+  );
   try {
     const user = await User.findById(req.userId);
+    console.log(
+      "hey user -----------------------------------------------------\n",
+      user
+    );
     if (!user) {
       return res.status(404).send({ message: "User not found." });
     }

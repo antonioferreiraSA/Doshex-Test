@@ -4,24 +4,27 @@ const authRoutes = require("./routes/auth");
 const weightRoutes = require("./routes/weight");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../swagger.json");
+const { response, request } = require("express");
 const app = express();
 
 mongoose.connect(
-  "mongodb://localhost:27017/node_api",
+  "mongodb+srv://toni:1234@cluster0.elminod.mongodb.net/?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true },
   (error) => {
     if (error) {
       console.error(error);
     } else {
-      console.log("Successfully connected to the MongoDB database.");
     }
   }
 );
 
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("hello world");
+});
 app.use("/auth", authRoutes);
 app.use("/weight", weightRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

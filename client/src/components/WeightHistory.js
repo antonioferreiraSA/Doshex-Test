@@ -10,7 +10,7 @@ const WeightHistory = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:3000/get_weight_history",
+          "http://localhost:4000/get_weight_history",
           {
             headers: {
               authorization: `Bearer ${token}`,
