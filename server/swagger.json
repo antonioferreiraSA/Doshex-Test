@@ -1,0 +1,262 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Weight Tracking API",
+    "version": "1.0.0",
+    "description": "API for tracking weight data for multiple users"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/login": {
+      "post": {
+        "description": "Login to the API",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "username",
+            "description": "Username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "password",
+            "description": "Password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "headers": {
+              "x-auth-token": {
+                "type": "string",
+                "description": "JWT Web Token for authentication"
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect username or password"
+          }
+        }
+      }
+    },
+    "/sign_up": {
+      "post": {
+        "description": "Sign up for the API",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "username",
+            "description": "Desired username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "password",
+            "description": "Desired password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful sign up",
+            "headers": {
+              "x-auth-token": {
+                "type": "string",
+                "description": "JWT Web Token for authentication"
+              }
+            }
+          },
+          "400": {
+            "description": "Username already taken"
+          }
+        }
+      }
+    },
+    "/save_weight": {
+      "post": {
+        "description": "Save a weight entry",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-auth-token",
+            "description": "JWT Web Token for authentication",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "weight",
+            "description": "Weight in pounds",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful save",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "description": "User ID of the weight entry's owner"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date and time of the weight entry"
+                },
+                "weight": {
+                  "type": "number",
+                  "description": "Weight in pounds"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          }
+        }
+      }
+    },
+    "/get_weight_history": {
+      "get": {
+        "description": "Get a user's weight history",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-auth-token",
+            "description": "JWT Web Token for authentication",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "string",
+                    "description": "User ID of the weight entry's owner"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Date and time of the weight entry"
+                  },
+                  "weight": {
+                    "type": "number",
+                    "description": "Weight in pounds"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          }
+        }
+      }
+    },
+    "/update_weight": {
+      "put": {
+        "description": "Update a weight entry",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-auth-token",
+            "description": "JWT Web Token for authentication",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "entry_id",
+            "description": "ID of the weight entry to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "weight",
+            "description": "New weight in pounds",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "description": "User ID of the weight entry's owner"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date and time of the weight entry"
+                },
+                "weight": {
+                  "type": "number",
+                  "description": "Weight in pounds"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Weight entry not found"
+          }
+        }
+      }
+    },
+    "/delete_weight": {
+      "delete": {
+        "description": "Delete a weight entry",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-auth-token",
+            "description": "JWT Web Token for authentication",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "entry_id",
+            "description": "ID of the weight entry to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion"
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "404": {
+            "description": "Weight entry not found"
+          }
+        }
+      }
+    }
+  }
+}
