@@ -2,9 +2,14 @@
 
 Install:
 
-- [yarn](https://yarnpkg.com/features/workspaces)
+- [YARN](https://yarnpkg.com/features/workspaces)
 - [Docker](https://docs.docker.com/engine/install/)
-- [Mongo community edition](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/#installing-mongodb-6.0-edition-edition)
+
+## Start MongoDb Docker instance
+
+```bash
+yarn start:database
+```
 
 Using YARN workspaces to create a monorepo
 
