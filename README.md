@@ -1,6 +1,28 @@
+Using YARN workspaces to create a monorepo
+
+Install [yarn](https://yarnpkg.com/features/workspaces)
+
+Install dependeices from root folder:
+
+```bash
+yarn
+```
+
 # Client
 
+the client can be started by it's self from root run:
+
+```bash
+yarn start:client
+```
+
 # Server
+
+the client can be started by it's self from root run:
+
+```bash
+yarn start:server
+```
 
 i have organised the collection for local development for postman click button below to join
 
