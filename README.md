@@ -5,7 +5,11 @@ Install:
 - [YARN](https://yarnpkg.com/features/workspaces)
 - [Docker](https://docs.docker.com/engine/install/)
 
+Check `.env.example` for the required ENV variables to run the apps.
+
 ## Start MongoDb Docker instance
+
+This will create a local development MongoDB.
 
 ```bash
 yarn start:database
