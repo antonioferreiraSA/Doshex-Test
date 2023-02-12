@@ -1,6 +1,12 @@
-Using YARN workspaces to create a monorepo
+## Prerequisits
 
-Install [yarn](https://yarnpkg.com/features/workspaces)
+Install:
+
+- [yarn](https://yarnpkg.com/features/workspaces)
+- [Docker](https://docs.docker.com/engine/install/)
+- [Mongo community edition](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/#installing-mongodb-6.0-edition-edition)
+
+Using YARN workspaces to create a monorepo
 
 Install dependeices from root folder:
 
@@ -8,22 +14,43 @@ Install dependeices from root folder:
 yarn
 ```
 
-# Client
+## Run Frontend and Backend development mode
 
-the client can be started by it's self from root run:
+```bash
+yarn dev
+```
+
+## Run Frontend and Backend production mode
+
+```bash
+yarn start
+```
+
+# Client (React front-end)
+
+Run development mode standalone:
+
+```bash
+yarn dev:client
+```
+
+Run production mode standalone:
 
 ```bash
 yarn start:client
 ```
 
-# Server
+# Server (express js)
 
-the client can be started by it's self from root run:
+Run development mode standalone:
+
+```bash
+yarn dev:server
+
+```
+
+Run production mode standalone:
 
 ```bash
 yarn start:server
 ```
-
-i have organised the collection for local development for postman click button below to join
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/14942122-6fa1b7b9-1354-4226-a1b9-7236b4)

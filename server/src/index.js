@@ -1,20 +1,18 @@
+const dotenv = require('dotenv').config();
+dotenv;
+
+const process = require('process');
+console.log('🔥 here >', process.env.NODE_ENV);
+
 const express = require('express');
-const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const weightRoutes = require('./routes/weight');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
+const databaseConnect = require('./database/index');
 const app = express();
 
-mongoose.connect(
-  'mongodb+srv://toni:1234@cluster0.elminod.mongodb.net/?retryWrites=true&w=majority',
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  (error) => {
-    if (error) {
-      console.error(error);
-    }
-  },
-);
+databaseConnect;
 
 app.use(express.json());
 app.get('/', (req, res) => {

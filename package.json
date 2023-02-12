@@ -4,10 +4,14 @@
   "description": "# Server",
   "main": "index.js",
   "scripts": {
+    "start:database": "docker compose up -d",
     "start:client": "yarn --cwd client start",
     "start:server": "yarn --cwd server start",
     "start": "concurrently \"yarn start:server\" \"yarn start:client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "yarn --cwd server dev",
+    "dev:client": "yarn --cwd client dev",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\""
   },
   "private": true,
   "workspaces": [

@@ -1,56 +1,55 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
+const express = require('express');
+const jwt = require('jsonwebtoken');
 
-const Weight = require("../models/weight");
-const User = require("../models/user");
+const Weight = require('../models/weight');
+const User = require('../models/user');
 
 const router = express.Router();
 
-console.log("WHEIGHT");
 const verifyToken = (req, res, next) => {
-  const token = req.header("x-auth-token");
+  const token = req.header('x-auth-token');
   console.log(
-    "token12 -----------------------------------------------------\n",
-    token
+    'token12 -----------------------------------------------------\n',
+    token,
   );
   if (!token) {
     console.log(
-      "!token -----------------------------------------------------\n",
-      token
+      '!token -----------------------------------------------------\n',
+      token,
     );
-    return res.status(401).send({ message: "No token provided." });
+    return res.status(401).send({ message: 'No token provided.' });
   }
 
   try {
     console.log(
-      "secretttttt -----------------------------------------------------\n",
-      secret
+      'secretttttt -----------------------------------------------------\n',
+      secret,
     );
     const decoded = jwt.verify(token, secret);
     console.log(
-      "decoded -----------------------------------------------------\n",
-      decoded
+      'decoded -----------------------------------------------------\n',
+      decoded,
     );
     req.userId = decoded.id;
     next();
   } catch (error) {
-    return res.status(401).send({ message: "Token is not valid." });
+    return res.status(401).send({ message: 'Token is not valid.' });
   }
 };
 
-router.post("/save-weight", verifyToken, async (req, res) => {
+router.post('/save-weight', verifyToken, async (req, res) => {
   console.log(
-    "hey body -----------------------------------------------------\n",
-    req.body
+    'hey body -----------------------------------------------------\n',
+    req.body,
   );
   try {
     const user = await User.findById(req.userId);
     console.log(
-      "hey user -----------------------------------------------------\n",
-      user
+      'hey user -----------------------------------------------------\n',
+      user,
     );
     if (!user) {
-      return res.status(404).send({ message: "User not found." });
+      return res.status(404).send({ message: 'User not found.' });
     }
 
     const weight = new Weight({
@@ -60,13 +59,13 @@ router.post("/save-weight", verifyToken, async (req, res) => {
     });
     await weight.save();
 
-    res.send({ message: "Weight added successfully." });
+    res.send({ message: 'Weight added successfully.' });
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.get("/get_weight_history", verifyToken, async (req, res) => {
+router.get('/get_weight_history', verifyToken, async (req, res) => {
   try {
     const weights = await Weight.find({ userId: req.userId }).sort({
       date: -1,
@@ -77,36 +76,36 @@ router.get("/get_weight_history", verifyToken, async (req, res) => {
   }
 });
 
-router.put("/update_weight/:id", verifyToken, async (req, res) => {
+router.put('/update_weight/:id', verifyToken, async (req, res) => {
   try {
     const weight = await Weight.findOneAndUpdate(
       { _id: req.params.id, userId: req.userId },
       req.body,
       {
         new: true,
-      }
+      },
     );
     if (!weight) {
-      return res.status(404).send({ message: "Weight entry not found." });
+      return res.status(404).send({ message: 'Weight entry not found.' });
     }
 
-    res.send({ message: "Weight entry updated successfully." });
+    res.send({ message: 'Weight entry updated successfully.' });
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.delete("/delete_weight/:id", verifyToken, async (req, res) => {
+router.delete('/delete_weight/:id', verifyToken, async (req, res) => {
   try {
     const weight = await Weight.findOneAndDelete({
       _id: req.params.id,
       userId: req.userId,
     });
     if (!weight) {
-      return res.status(404).send({ message: "Weight entry not found." });
+      return res.status(404).send({ message: 'Weight entry not found.' });
     }
 
-    res.send({ message: "Weight entry deleted successfully." });
+    res.send({ message: 'Weight entry deleted successfully.' });
   } catch (error) {
     res.status(500).send(error);
   }
