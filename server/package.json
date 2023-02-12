@@ -18,5 +18,8 @@
     "mongodb": "^5.0.1",
     "mongoose": "^6.9.1",
     "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.34.0"
   }
 }
