@@ -29,6 +29,14 @@ yarn
 yarn dev
 ```
 
+once Backend is running you can find the swagger Documentaion on
+
+```bash
+http://localhost:4000/api-docs/
+```
+
+![alt text](/server/images/Screenshot%20at%20Feb%2013%2008-13-40.png)
+
 ## Run Frontend and Backend production mode
 
 ```bash
